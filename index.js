@@ -1,8 +1,8 @@
-import http from "http"
+import http from "http";
 
-const server =http.createServer((req,res)=> {
-    res.writeHead(200,{"Content-Type":"text/plain"})
-    res.end("hello World\n")
-})
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { "Content-Type": "text/plain" });
+  res.end("hello World\n");
+});
 
-server.listen(4040,"localhost",()=> console.log("loading"))
+server.listen(4040, "localhost", () => console.log("loading"));
