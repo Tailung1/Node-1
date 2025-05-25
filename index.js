@@ -1,3 +1,8 @@
-import fs from "fs"
-const data = fs.readFileSync('text.txt', 'utf8');
-console.log(data);
+import http from "http"
+
+const server =http.createServer((req,res)=> {
+    res.writeHead(200,{"Content-Type":"text/plain"})
+    res.end("hello World\n")
+})
+
+server.listen(4040,"localhost",()=> console.log("loading"))
