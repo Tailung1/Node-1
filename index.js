@@ -1,6 +1,10 @@
 import http from "http";
 import fs from "fs";
 import url from "url";
+import slugify from "slugify";
+
+// const str=slugify("hellO",{lower:true})
+// console.log(str)
 
 const server = http.createServer((req, res) => {
   const { id } = url.parse(req.url, true).query;
@@ -22,7 +26,6 @@ const server = http.createServer((req, res) => {
     res.end(posts);
   }
 });
-
 
 server.listen(4040, "localhost", () => {
   console.log("Server is running on http://localhost:4040");
