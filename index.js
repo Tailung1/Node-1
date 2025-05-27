@@ -1,16 +1,26 @@
 import http from "http";
-import fs from "fs"
+import fs from "fs";
+import url from "url";
 
 const server = http.createServer((req, res) => {
-  if(req.url==="/") {
-    res.writeHead(200,{"Content-Type":"text/plain"})
-    res.end("home")
-  } else if (req.url==="/posts") {
-    const posts=fs.readFileSync("posts.json","utf8")
-    res.writeHead(200,{"Content-Type":"application/json"})
-    res.end(posts)
+  const { id } = url.parse(req.url, true).query;
+  const { pathname } = url.parse(req.url, true);
+  if (pathname === "/") {
+    res.writeHead(200, { "Content-Type": "text/plain" });
+    res.end("home");
+  } else if (pathname === "/posts") {
+    const posts = fs.readFileSync("posts.json", "utf8");
+    if (id) {
+      const post = JSON.parse(posts).find(
+        (post) => post.id == Number(id)
+      );
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(JSON.stringify(post));
+      return;
+    }
+    res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(posts);
   }
-
 });
 
 server.listen(4040, "localhost", () => {
