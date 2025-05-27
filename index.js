@@ -5,7 +5,7 @@ import slugify from "slugify";
 
 // const str=slugify("hellO",{lower:true})
 // console.log(str)
-
+const posts = fs.readFileSync("posts.json", "utf8");
 const server = http.createServer((req, res) => {
   const { id } = url.parse(req.url, true).query;
   const { pathname } = url.parse(req.url, true);
@@ -13,7 +13,6 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, { "Content-Type": "text/plain" });
     res.end("home");
   } else if (pathname === "/posts") {
-    const posts = fs.readFileSync("posts.json", "utf8");
     if (id) {
       const post = JSON.parse(posts).find(
         (post) => post.id == Number(id)
